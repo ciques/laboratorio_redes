@@ -10,7 +10,7 @@ if len(sys.argv) is not 3:
 host = sys.argv[1]
 port = int(sys.argv[2])
 
-message = 'aasd'*64000  # ver aqui o que enviar
+message = 'aasd'*64000
 
 #(AF_INET is used for IPv4 protocols)
 #(SOCK_STREAM is used for TCP)
@@ -20,7 +20,6 @@ dest = (host, port)
 tcp.connect(dest)
 
 while True:
-    #tcp.send (','.join(message))
     tcp.send (message)
 
 tcp.close()

@@ -5,7 +5,7 @@ import sys
 import csv
 
 
-def print_result_thread():
+def log_writer():
     file_name = 'log_txt_'+ str(port) + '.txt'
     with open(file_name,'w') as the_file:
         the_file.write('Hello\n')
@@ -39,7 +39,7 @@ orig = (host, port)
 tcp.bind(orig)
 tcp.listen(1)
 
-thread.start_new_thread(print_result_thread,())
+thread.start_new_thread(log_writer,())
 
 while True:
     con, cliente = tcp.accept()
