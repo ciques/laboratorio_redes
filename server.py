@@ -6,18 +6,20 @@ import csv
 
 
 def print_result_thread():
-    file_name = 'mesure_'+ str(port) + '.csv'
-    with open(file_name,'w') as csv_file:
-        writer = csv.writer(csv_file, delimiter=',')
+    file_name = 'log_txt_'+ str(port) + '.txt'
+    with open(file_name,'w') as the_file:
+        the_file.write('Hello\n')
         old_value = 0
         while True:
-            value = valued_readed
-            row = [0,0]
-            row[0] = int(time())
-            row[1] = value - old_value
+            value = message_size
+            line = str(time()) + ' - ' + str(value - old_value)
+            print line
             old_value = value
-            writer.writerow(row)
+            the_file.write(line + '\n')
             sleep(1)  
+
+    print 'Finalizando thread'
+    thread.exit()
 
 
 if len(sys.argv) is not 3:
@@ -27,9 +29,9 @@ if len(sys.argv) is not 3:
 host = sys.argv[1]
 port = int(sys.argv[2])
 
-message = 'a'*640000
+message = 'a'*64000
 size = sys.getsizeof(message)
-valued_readed = 0
+message_size = 0
 
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 orig = (host, port)
@@ -44,10 +46,8 @@ while True:
     print 'Conectado por', cliente
     while True:
         msg = con.recv(size)
-        print sys.getsizeof(message)
         if not msg: break
-        valued_readed += sys.getsizeof(msg)
-        sleep(1)
+        message_size += sys.getsizeof(msg)
     print 'Finalizando conexao do cliente', cliente
     con.close()
 
